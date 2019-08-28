@@ -1,5 +1,7 @@
 # Sample code for Node.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jerilseb/resumable-node.svg)](https://greenkeeper.io/)
+
 This sample is written for [Node.js 0.10+](http://nodejs.org/) and requires
 [Express 4+](http://expressjs.com/) to make the sample code cleaner.
 
