@@ -16,7 +16,7 @@ class Resumable {
     async createTempDir(tempDir) {
         try{
             await mkDir(tempDir);
-        } catch {}
+        } catch(e) {}
     }
 
     // Clean up the identifier
