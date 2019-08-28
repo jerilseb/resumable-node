@@ -1,6 +1,10 @@
-var fs = require('fs'), path = require('path'), util = require('util'), Stream = require('stream').Stream;
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const { Stream } = require('stream');
 
-module.exports = resumable = function(temporaryFolder){
+
+module.exports = function(temporaryFolder){
   var $ = this;
   $.temporaryFolder = temporaryFolder;
   $.maxFileSize = null;
@@ -198,7 +202,6 @@ module.exports = resumable = function(temporaryFolder){
                   pipeChunkRm(number + 1);
 
               } else {
-
                   if (options.onDone) options.onDone();
 
               }
