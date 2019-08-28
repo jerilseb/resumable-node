@@ -34,14 +34,14 @@ app.get('/status', (req, res) => {
 // });
 
 // Handle uploads through Resumable.js
-app.post('/uploadchunks', async (req, res) => {
+app.post('/chunks', async (req, res) => {
     const [status, filename, identifier] = await resumable.post(req);
     console.log('POST', status, 'IDENTIFIER: ', identifier);
     res.send(status);
 });
 
 // Handle status checks on chunks through Resumable.js
-app.get('/uploadchunks', async (req, res) => {
+app.get('/chunks', async (req, res) => {
     const [status, filename, original_filename, identifier] = await resumable.get(req);
     console.log('GET', status, filename, original_filename, identifier);
     res.send((status == 'found' ? 200 : 404), status);
