@@ -19,15 +19,14 @@ class Resumable {
         } catch(e) {}
     }
 
-    // Clean up the identifier
+    // Allow only alpha-numeric characters, hyphen and underscore in identifier
     cleanIdentifier(identifier){
         return identifier.replace(/^0-9A-Za-z_-/img, '');
     }
 
-    // Clean up the identifier
     getChunkFilename(chunkNumber, identifier){
         identifier = this.cleanIdentifier(identifier);
-        return path.join(this.temporaryFolder, './resumable-'+ identifier + '.' + chunkNumber);
+        return path.join(this.temporaryFolder, identifier + '.' + chunkNumber);
     }
 
     // Check if the request is sane

@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var multipart = require('connect-multiparty');
-var crypto = require('crypto');
+// var crypto = require('crypto');
 
 const Resume = require('./resumable.js');
 const resumable = new Resume('./tmp/');
@@ -45,7 +45,7 @@ app.post('/chunks', async (req, res) => {
 app.get('/chunks', async (req, res) => {
     const [status, filename, original_filename, identifier] = await resumable.get(req);
     console.log('GET', status, filename, original_filename, identifier);
-    res.send((status == 'found' ? 200 : 404), status);
+    res.send((status == 'found' ? 200 : 204), status);
 });
 
 // app.get('/download/:identifier', (req, res) => {
