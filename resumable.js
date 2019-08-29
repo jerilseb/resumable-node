@@ -95,7 +95,7 @@ class Resumable {
           return ['invalid_resumable_request', null, null, null];
         }
 
-        const validation = this.validateRequest(chunkNumber, chunkSize, totalSize, identifier, files['file'].size);
+        const validation = this.validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename, files['file'].size);
         if(validation === 'VALID') {
             const chunkFilename = this.getChunkFilename(chunkNumber, identifier);
             await fileRename(files['file'].path, chunkFilename);
