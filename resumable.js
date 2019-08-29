@@ -61,11 +61,11 @@ class Resumable {
     }
 
     async get(req) {
-        const chunkNumber = req.param('resumableChunkNumber', 0);
-        const chunkSize = req.param('resumableChunkSize', 0);
-        const totalSize = req.param('resumableTotalSize', 0);
-        const identifier = req.param('resumableIdentifier', "");
-        const filename = req.param('resumableFilename', "");
+        const chunkNumber = parseInt(req.query['resumableChunkNumber']) || 0;
+        const chunkSize = parseInt(req.query['resumableChunkSize']) || 0;
+        const totalSize = parseInt(req.query['resumableTotalSize']) || 0;
+        const identifier = req.query['resumableIdentifier'] || "";
+        const filename = req.query['resumableFilename'] || "";
     
         if(this.validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename) === 'VALID') {
             const chunkFilename = this.getChunkFilename(chunkNumber, identifier);
@@ -84,9 +84,9 @@ class Resumable {
         const fields = req.body;
         const files = req.files;
     
-        const chunkNumber = fields['resumableChunkNumber'];
-        const chunkSize = fields['resumableChunkSize'];
-        const totalSize = fields['resumableTotalSize'];
+        const chunkNumber = parseInt(fields['resumableChunkNumber']) || 0;
+        const chunkSize = parseInt(fields['resumableChunkSize']) || 0;
+        const totalSize = parseInt(fields['resumableTotalSize']) || 0;
         const identifier = this.cleanIdentifier(fields['resumableIdentifier']);
         const filename = fields['resumableFilename'];
         const original_filename = fields['resumableIdentifier'];
