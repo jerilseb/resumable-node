@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const { promisify } = require('util');
+const readChunk = require('read-chunk');
+const fileType = require('file-type');
 
 const mkDir = promisify(fs.mkdir);
 const fileExists = promisify(fs.exists);
@@ -98,7 +100,14 @@ class Resumable {
         const validation = this.validateRequest(chunkNumber, chunkSize, totalSize, identifier, filename, files['file'].size);
         if(validation === 'VALID') {
             const chunkFilename = this.getChunkFilename(chunkNumber, identifier);
-            await fileRename(files['file'].path, chunkFilename);
+            const filePath = files['file'].path;
+            if(chunkNumber === 1) {
+                const buffer = await readChunk(filePath, 0, fileType.minimumBytes);
+                const mime = fileType(buffer);
+                if (!['video/webm', 'video/mp4'].includes(mime)) return ['INVALID_VIDEO_FILE', null, null, null];
+            }
+
+            await fileRename(filePath, chunkFilename);
     
             // Do we have all the chunks?
             let currentTestChunk = 1;
